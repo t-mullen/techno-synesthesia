@@ -1,0 +1,25 @@
+{
+  "name": "techno-synesthesia",
+  "version": "1.0.0",
+  "description": "See through sound.",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "standard --fix src/** && tape test/*.js",
+    "build": "browserify src/index.js -s Synesthesia -o dist/bundle.js",
+    "watch": "watchify src/index.js -s Synesthesia -o dist/bundle.js",
+    "test-browser": "zuul --local -- test/*.js"
+  },
+  "author": "Thomas Mullen",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^8.6.0",
+    "tape": "^4.6.3"
+  },
+  "dependencies": {
+    "getusermedia": "^2.0.1",
+    "hilbert-2d": "0.0.1"
+  }
+}
