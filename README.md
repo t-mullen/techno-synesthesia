@@ -4,7 +4,7 @@ TechnoSynesthesia is a web application that converts live video into a frequency
 
 ## Usage
 1. Turn your device's volume all the way down. 
-2. Go to https://rationalcoding.github.io/TechnoSynesthesia and allow access to your webcam. 
+2. Go to https://rationalcoding.github.io/techno-synesthesia and allow access to your webcam. 
 3. Finally, turn your volume up to a comfortable level. 
 4. You should hear a variety of seemingly random frequencies and noises.
 
