@@ -5,7 +5,7 @@ var hilbert = require('hilbert-2d')
 
 function Synesthesia() {
   getusermedia({ video: true, audio: false }, (err, stream) => {
-    if (err || !AudioContext) {
+    if (err || !(AudioContext || webkitAudioContext)) {
       window.alert('Could not access camera. You may have an outdated browser!')
       throw err
     }
@@ -30,7 +30,7 @@ Synesthesia.prototype._onStream = function (stream) {
     document.body.appendChild(canvas)
 
     var ctx = canvas.getContext('2d')
-    var audioCtx = new AudioContext()
+    var audioCtx = new (AudioContext || webkitAudioContext)()
 
     // average data into lower-resolution cells
     var order = 4
