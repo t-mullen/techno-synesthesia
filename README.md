@@ -25,4 +25,4 @@ This application captures video through the getUserMedia API and draws it to a c
 
 ## Inspiration
 
-This application was inspired by [3Blue1Brown's video on the Hilbert curve](https://www.youtube.com/watch?v=3s7h2MHQtxc).
+This application was inspired by [3Blue1Brown's video on the Hilbert curve](https://youtu.be/3s7h2MHQtxc?t=43s).
