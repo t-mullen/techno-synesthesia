@@ -4,7 +4,7 @@ var getusermedia = require('getusermedia')
 var hilbert = require('hilbert-2d')
 
 function Synesthesia() {
-  getusermedia({ video: true, audio: false }, (err, stream) => {
+  getusermedia({ video: { facingMode: "environment" }, audio: false }, (err, stream) => {
     if (err) {
       window.alert('Could not access camera. You may have an outdated browser!')
       throw err
