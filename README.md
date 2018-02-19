@@ -17,7 +17,7 @@ Although TechnoSynesthesia takes some practice to use effectively, beginners can
 - Moving objects will cause a change in overall frequency/pitch. 
 - Light in different areas of the video will make different frequencies louder.
 
-After using for some time, users should be able to identify simple shapes, direction of motion, and level of noise/detail in a scene.
+With enough practice, users should be able to identify simple shapes, direction of motion, and level of noise/detail in a scene.
 
 ## Technical Explanation
 
