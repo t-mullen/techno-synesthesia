@@ -85,7 +85,7 @@ Synesthesia.prototype._onStream = function (stream) {
           var index = Math.floor(hilbert.encode(order, [x, y])) // map to 1D
           var newGain = Math.max(average / 255, 0.0001)
           var gainNode = gains[index]
-          gainNode.gain.exponentialRampToValueAtTime(newGain, audioCtx.currentTime + 0.01)
+          gainNode.gain.linearRampToValueAtTime(newGain, audioCtx.currentTime + 0.01)
           ctx.putImageData(pixels, x * cellWidth, y * cellHeight)
         }
       }
