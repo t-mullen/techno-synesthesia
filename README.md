@@ -15,8 +15,7 @@ Although TechnoSynesthesia takes some practice to use effectively, beginners can
 - Turning towards a bright object increases the overall volume. 
 - Darkness causes silence.
 - Moving objects will cause a change in frequency/pitch. 
-- High frequencies map to light near the top of the video.
-- Lower frequencies map to light near the bottom of the video.
+- Light in different areas of the video with cause different frequencies.
 
 After using for some time, users should be able to identify simple patterns and shapes.
 
