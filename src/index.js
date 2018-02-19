@@ -18,6 +18,9 @@ Synesthesia.prototype._onStream = function (stream) {
   inputVideo.autoplay = true
   inputVideo.srcObject = stream
   inputVideo.muted = true
+  inputVideo.playsinline = true
+  inputVideo.setAttribute('muted', true)
+  inputVideo.setAttribute('playsinline', true)
   inputVideo.play()
 
   // wait for width and height metadata
