@@ -3012,6 +3012,7 @@ module.exports = {
 
 var getusermedia = require('getusermedia')
 var hilbert = require('hilbert-2d')
+var MultiOscillator = require('./multiOscillator')
 
 function Synesthesia() {
   getusermedia({ video: { facingMode: "environment" }, audio: false }, (err, stream) => {
@@ -3046,7 +3047,7 @@ Synesthesia.prototype._onStream = function (stream) {
     var audioCtx = window.audioContext
 
     // average data into lower-resolution cells
-    var order = 4
+    var order = 5
     var cellCount = 2 ** (order - 1)
     var totalCells = cellCount * cellCount
     var cellWidth = canvas.width / cellCount
@@ -3054,25 +3055,22 @@ Synesthesia.prototype._onStream = function (stream) {
 
     var masterGain = audioCtx.createGain()
     masterGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0)
-    masterGain.gain.setTargetAtTime(0.1, audioCtx.currentTime, 3)
+    masterGain.gain.setTargetAtTime(1 / totalCells, audioCtx.currentTime, 3)
     masterGain.connect(audioCtx.destination)
 
     // intialize frequency oscilliators (that's fun to say...)
-    var freqRange = [270, 900]
+    var freqRange = [250, 3000]
     var freqInterval = (freqRange[1] - freqRange[0]) / totalCells
-    var gains = []
+    var frequencies = []
+    var currentFreq = freqRange[0]
     for (var i = 0; i < totalCells; i++) {
-      var gainNode = audioCtx.createGain()
-      gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.02)
-      gainNode.connect(masterGain)
-      gains[i] = gainNode
-
-      var osc = audioCtx.createOscillator()
-      osc = audioCtx.createOscillator()
-      osc.frequency.setValueAtTime(freqRange[1] - i * freqInterval, audioCtx.currentTime, 0.02) // value in hertz
-      osc.start()
-      osc.connect(gainNode)
+      frequencies.push(currentFreq)
+      currentFreq += freqInterval
     }
+
+    var gains = (new Array(totalCells)).fill(0)
+    var osc = new MultiOscillator(frequencies, gains, audioCtx)
+    osc.connect(masterGain)
 
     function draw() {
       // draw video to canvas
@@ -3094,8 +3092,7 @@ Synesthesia.prototype._onStream = function (stream) {
           }
           var index = Math.floor(hilbert.encode(order, [x, y])) // map to 1D
           var newGain = Math.max(average / 255, 0.0001)
-          var gainNode = gains[index]
-          gainNode.gain.linearRampToValueAtTime(newGain, audioCtx.currentTime + 0.01)
+          gains[index] = newGain
           ctx.putImageData(pixels, x * cellWidth, y * cellHeight)
         }
       }
@@ -3106,5 +3103,40 @@ Synesthesia.prototype._onStream = function (stream) {
 }
 
 module.exports = Synesthesia
-},{"getusermedia":1,"hilbert-2d":2}]},{},[13])(13)
+},{"./multiOscillator":14,"getusermedia":1,"hilbert-2d":2}],14:[function(require,module,exports){
+function MultiOscillator (frequencies, gains, audioContext) {
+  var bufferSize = 4096
+  this._scriptNode = audioContext.createScriptProcessor(bufferSize, 0, 1)
+
+  var twoPI = 2 * Math.PI
+  var sampleRate = 1 / 48000
+
+  this._scriptNode.onaudioprocess = function (event) {
+    var outputBuffer = event.outputBuffer
+
+    for (var channel = 0; channel < outputBuffer.numberOfChannels; channel++) {
+      var outputData = outputBuffer.getChannelData(channel)
+
+      for (var i=0; i < outputData.length; i++) {
+        outputData[i] = 0
+      }
+
+      // TODO: Utilize GPU
+      frequencies.forEach((freq, index) => {
+        var time = event.playbackTime
+        for (var i=0; i < bufferSize; i++) {
+          outputData[i] += gains[index]*Math.sin(twoPI * freq * time)
+          time+=sampleRate
+        }
+      })
+    }
+  }
+}
+
+MultiOscillator.prototype.connect = function (node) {
+  this._scriptNode.connect(node)
+}
+
+module.exports = MultiOscillator
+},{}]},{},[13])(13)
 });
