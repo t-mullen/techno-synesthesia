@@ -1,10 +1,10 @@
 # TechnoSynesthesia
 
-TechnoSynesthesia is a [web application](https://rationalcoding.github.io/techno-synesthesia) that converts live video into a frequency spectrum in realtime. It allows people to determine brightness, motion and direction of light through hearing.
+TechnoSynesthesia is a [web application](https://t-mullen.github.io/techno-synesthesia) that converts live video into a frequency spectrum in realtime. It allows people to determine brightness, motion and direction of light through hearing.
 
 ## Usage
 1. Turn your device's volume all the way down. 
-2. Go to https://rationalcoding.github.io/techno-synesthesia and allow access to your webcam. 
+2. Go to https://t-mullen.github.io/techno-synesthesia and allow access to your webcam. 
 3. Finally, turn your volume up to a comfortable level. 
 4. You should hear a variety of seemingly random frequencies and noises. (iOS users must tap anywhere once.)
 5. Try waving your hand in front of the camera.
