@@ -1,6 +1,6 @@
 # TechnoSynesthesia
 
-TechnoSynesthesia is a [web application](https://t-mullen.github.io/techno-synesthesia) that converts live video into a frequency spectrum in realtime. It allows people to determine brightness, motion and direction of light through hearing.
+TechnoSynesthesia is a web application that converts live video into a frequency spectrum in realtime. It allows people to determine brightness, motion and direction of light through hearing.
 
 ## Usage
 1. Turn your device's volume all the way down. 
